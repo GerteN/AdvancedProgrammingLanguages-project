@@ -1,0 +1,8 @@
+﻿  db.cpp
+     Creazione della libreria C:\Users\matte\source\repos\testapp\x64\Release\testapp.lib e dell'oggetto C:\Users\matte\source\repos\testapp\x64\Release\testapp.exp
+  Generazione codice in corso...
+  57 of 2226 functions ( 2.6%) were compiled, the rest were copied from previous compilation.
+    56 functions were new in current compilation
+    26 functions had inline decision re-evaluated but remain unchanged
+  Generazione codice terminata
+  testapp.vcxproj -> C:\Users\matte\source\repos\testapp\x64\Release\testapp.dll
