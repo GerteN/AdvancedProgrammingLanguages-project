@@ -2,7 +2,8 @@
 #include "User.h"
 
 User::User(){}
-User::User(const char* nome, const char* cognome, const char* indirizzo, const char* dataNascita, const char* email, const char* username, const char* password) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password){}
+User::User(const char* nome, const char* cognome, const char* indirizzo, const char* dataNascita, const char* email, const char* username, const char* password) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password){
+}
 
 User::~User() {}
 
@@ -60,6 +61,8 @@ void User::setNome(const char* nome) {
 void User::setPassword(const char* password) {
 	m_password = password;
 }
+
+
 
 
 

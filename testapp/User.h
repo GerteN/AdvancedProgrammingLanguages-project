@@ -56,6 +56,8 @@ public:
 		return python::object(handle);
 	}*/
 
+
+
 protected:
 	const char* m_nome;
 	const char* m_cognome;

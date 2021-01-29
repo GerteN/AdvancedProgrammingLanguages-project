@@ -75,7 +75,6 @@ void db::queryDB(MYSQL* conn, const char* query) {
 		std::string error = "unable to query db with name " + std::string(conn->db) + "; query: " + std::string(query);
 		throw std::runtime_error(error);
 		mysql_close(conn);
-		exit(1);
 	}
 }
 
