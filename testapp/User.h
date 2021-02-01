@@ -11,26 +11,26 @@ class User {
 public:
 	//constructor
 	User();
-	User(const char* nome, const char* cognome, const char* indirizzo, const char* dataNascita, const char* email, const char* username, const char* password);
+	User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password);
 	//destructor
 	~User();
 
-	const char* getNome();
-	const char* getEmail();
-	const char* getPassword();
-	const char* getCognome();
-	const char* getUsername();
-	const char* getIndirizzo();
-	const char* getDataNascita();
+	string getNome();
+	string getEmail();
+	string getPassword();
+	string getCognome();
+	string getUsername();
+	string getIndirizzo();
+	string getDataNascita();
 
 	// Setters
-	void setNome(const char* nome);
-	void setEmail(const char* email);
-	void setPassword(const char* password);
-	void setCognome(const char* cognome);
-	void setUsername(const char* username);
-	void setIndirizzo(const char* indirizzo);
-	void setDataNascita(const char* dataNascita);
+	void setNome(string nome);
+	void setEmail(string email);
+	void setPassword(string password);
+	void setCognome(string cognome);
+	void setUsername(string username);
+	void setIndirizzo(string indirizzo);
+	void setDataNascita(string dataNascita);
 
 	//virtual function
 
@@ -59,13 +59,13 @@ public:
 
 
 protected:
-	const char* m_nome;
-	const char* m_cognome;
-	const char* m_indirizzo;
-	const char* m_dataNascita;
-	const char* m_email;
-	const char* m_username;
-	const char* m_password;
+	string m_nome;
+	string m_cognome;
+	string m_indirizzo;
+	string m_dataNascita;
+	string m_email;
+	string m_username;
+	string m_password;
 
 
 	

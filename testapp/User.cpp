@@ -2,63 +2,63 @@
 #include "User.h"
 
 User::User(){}
-User::User(const char* nome, const char* cognome, const char* indirizzo, const char* dataNascita, const char* email, const char* username, const char* password) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password){
+User::User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password){
 }
 
 User::~User() {}
 
-const char* User::getEmail() {
+string User::getEmail() {
 	return m_email;
 }
 
-const char* User::getCognome() {
+string User::getCognome() {
 	return m_cognome;
 }
 
-const char* User::getIndirizzo() {
+string User::getIndirizzo() {
 	return m_indirizzo;
 }
 
-const char* User::getDataNascita() {
+string User::getDataNascita() {
 	return m_dataNascita;
 }
 
-const char* User::getUsername() {
+string User::getUsername() {
 	return m_username;
 }
 
-const char* User::getNome() {
+string User::getNome() {
 	return m_nome;
 }
 
-const char* User::getPassword() {
+string User::getPassword() {
 	return m_password;
 }
 
-void User::setCognome(const char* cognome) {
+void User::setCognome(string cognome) {
 	m_cognome = cognome;
 }
 
-void User::setIndirizzo(const char* indirizzo) {
+void User::setIndirizzo(string indirizzo) {
 	m_indirizzo = indirizzo;
 }
-void User::setDataNascita(const char* dataNascita) {
+void User::setDataNascita(string dataNascita) {
 	m_dataNascita = dataNascita;
 }
 
-void User::setUsername(const char* username) {
+void User::setUsername(string username) {
 	m_username = username;
 }
 
-void User::setEmail(const char* email) {
+void User::setEmail(string email) {
 	m_email = email;
 }
 
-void User::setNome(const char* nome) {
+void User::setNome(string nome) {
 	m_nome = nome;
 }
 
-void User::setPassword(const char* password) {
+void User::setPassword(string password) {
 	m_password = password;
 }
 

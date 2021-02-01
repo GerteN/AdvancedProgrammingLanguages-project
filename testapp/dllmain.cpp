@@ -14,24 +14,62 @@
 #include <boost/python/exception_translator.hpp>
 #include <exception>
 
+void prepareStrings(string& str, char sep, vector<string>& out)
+{
+    size_t start;
+    size_t end = 0;
+
+    while ((start = str.find_first_not_of(sep, end)) != string::npos)
+    {
+        end = str.find(sep, start);
+        out.push_back(str.substr(start, end - start));
+    }
+}
+
+bool checkPassword(string passwordDB, string passwordToCheck) {
+
+    int pass = stoi(passwordDB);
+    size_t passDB = (pass);
+    hash<string> stringHash;
+    if (stringHash(passwordToCheck) == passDB)
+        return true;
+    return false;
+}
 
 
-boost::shared_ptr<User> validateUser(db DB, string username, string password) {
+User* validateUser(db DB, string username, string password) {
     string query = "select * from users where username = '" + username + "' and password = '" + password + "'";
     std::vector<std::string> lista = DB.queryDB(DB.getConn(), query.c_str(), true);
     if (lista.empty())
-        return NULL;
-    boost::shared_ptr<User> user_ptr(new User(lista[0].c_str(), lista[1].c_str(), lista[2].c_str(), lista[3].c_str(), lista[4].c_str(), lista[5].c_str(), lista[6].c_str()));
-    return user_ptr;
+        return nullptr;
+
+    string tmp = lista[0];
+    char sep = ' ';
+    vector<string> out;
+    prepareStrings(tmp, sep, out);
+    /*if (!checkPassword(out[6], password))
+        return nullptr;*/
+
+    User *user = new User(out[0], out[1], out[2], out[3], out[4], out[5], out[6]);
+    return user;
 }
 
-boost::shared_ptr<Admin> validateAdmin(db DB, string username, string password) {
+Admin* validateAdmin(db DB, string username, string password) {
     string query = "select * from admins where username = '" + username + "' and password = '" + password + "'";
     std::vector<std::string> lista = DB.queryDB(DB.getConn(), query.c_str(), true);
     if (lista.empty())
-        return NULL;
-    boost::shared_ptr<Admin> admin_ptr(new Admin(lista[0].c_str(), lista[1].c_str(), lista[2].c_str(), lista[3].c_str(), lista[4].c_str(), lista[5].c_str(), lista[6].c_str(), true));
-    return admin_ptr;
+        return nullptr;
+    string tmp = lista[0];
+    char sep = ' ';
+    vector<string> out;
+    prepareStrings(tmp, sep, out);
+
+    
+    /*if (!checkPassword(out[6], password))
+        return nullptr;*/
+
+    Admin* admin = new Admin(out[0], out[1], out[2], out[3], out[4], out[5], out[6], true);
+    return admin;
 }
 
 void createAdmin(Admin admin, db DB) {
@@ -43,15 +81,8 @@ void createAdmin(Admin admin, db DB) {
     string password(admin.getPassword());
     string username(admin.getUsername());
     string query = "INSERT INTO admins (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES(" + nome + cognome + indirizzo + dataNascita + email + username + password + ")";
-    if (mysql_query(DB.getConn(), query.c_str()))
-    {
-        std::string error = "unable to insert user with username: " + username + ", name:  " + nome + ", cognome: " + cognome + " into user table";
-        throw std::runtime_error(error);
-        mysql_close(DB.getConn());
-        exit(1);
-    }
+    DB.queryDB(DB.getConn(), query.c_str(), true);
 }
-
 
 
 void createUser(User user, db DB) {
@@ -63,13 +94,7 @@ void createUser(User user, db DB) {
     string password(user.getPassword());
     string username(user.getUsername());
     string query = "INSERT INTO users (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES('"+ nome + "', '" + cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"')";
-    if (mysql_query(DB.getConn(), query.c_str()))
-    {
-        std::string error = "unable to insert user with username: "+ username + ", name:  "+ nome + ", cognome: "+cognome + " into user table";
-        throw std::runtime_error(error);
-        mysql_close(DB.getConn());
-        exit(1);
-    }
+    DB.queryDB(DB.getConn(), query.c_str(), true);
 }
 
 
@@ -77,24 +102,22 @@ BOOST_PYTHON_MODULE(testapp) {
     using namespace boost::python;
     class_<lista>("lista").def(vector_indexing_suite<lista>());
     class_<MYSQL>("MYSQL");
-    class_<User, boost::shared_ptr<User>, boost::noncopyable>("User", no_init);
-    class_<Admin, boost::shared_ptr<Admin>, boost::noncopyable>("Admin", no_init);
     
-    def("validateUser", validateUser);
-    def("validateAdmin", validateAdmin);
+    def("validateUser", validateUser, return_internal_reference<>());
+    def("validateAdmin", validateAdmin, return_internal_reference<>());
     def("createUser", createUser);
     def("createAdmin", createAdmin);
 
-    class_<Admin, boost::noncopyable, boost::shared_ptr<Admin>>("Admin")
-        .def(init<const char*, const char*, const char*, const char*, const char*, const char*, const char*, bool>())
-        .def("getNome", &Admin::getNome)
-        .def("getCognome", &Admin::getCognome)
-        .def("getEmail", &Admin::getEmail)
-        .def("getIndirizzo", &Admin::getIndirizzo)
-        .def("getUsername", &Admin::getUsername)
-        .def("getPassword", &Admin::getPassword)
-        .def("getDataDiNascita", &Admin::getDataNascita)
-        .def("isAdmin", &Admin::getIsAdmin);
+    class_<Admin, boost::noncopyable>("Admin", init<string, string, string, string, string, string, string, bool>())
+        .def(init<>())
+        .add_property("nome", &Admin::getNome, &Admin::setNome)
+        .add_property("cognome", &Admin::getCognome, &Admin::setCognome)
+        .add_property("email", &Admin::getEmail, &Admin::setEmail)
+        .add_property("indirizzo", &Admin::getIndirizzo, &Admin::setIndirizzo)
+        .add_property("username", &Admin::getUsername, &Admin::setUsername)
+        .add_property("password", &Admin::getPassword, &Admin::setPassword)
+        .add_property("dataDiNascita", &Admin::getDataNascita, &Admin::setDataNascita)
+        .add_property("isAdmin", &Admin::getIsAdmin, &Admin::setIsAdmin);
 
     class_<db, boost::noncopyable>("db")
         .def(init<>())
@@ -109,15 +132,15 @@ BOOST_PYTHON_MODULE(testapp) {
         .def("setRow", &db::setRow)
         .def("setResult", &db::setResult);
 
-    class_<User, boost::noncopyable, boost::shared_ptr<User>>("User")
-        .def(init<const char*, const char*, const char*, const char*, const char*, const char*, const char*>())
-        .def("getNome", &User::getNome)
-        .def("getCognome", &User::getCognome)
-        .def("getEmail", &User::getEmail)
-        .def("getIndirizzo", &User::getIndirizzo)
-        .def("getUsername", &User::getUsername)
-        .def("getPassword", &User::getPassword)
-        .def("getDataDiNascita", &User::getDataNascita);
+    class_<User, boost::noncopyable>("User", init<string, string, string, string, string, string, string>())
+        .def(init<>())
+        .add_property("nome", &User::getNome, &User::setNome)
+        .add_property("cognome", &User::getCognome, &User::setCognome)
+        .add_property("email", &User::getEmail, &User::setEmail)
+        .add_property("indirizzo", &User::getIndirizzo, &User::setIndirizzo)
+        .add_property("username", &User::getUsername, &User::setUsername)
+        .add_property("password", &User::getPassword, &User::setPassword)
+        .add_property("dataDiNascita", &User::getDataNascita, &User::setDataNascita);
 
     
 }

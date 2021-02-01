@@ -6,7 +6,7 @@
 class Admin : public User {
 public:
 	Admin();
-	Admin(const char* nome, const char* cognome, const char* indirizzo, const char* dataNascita, const char* email, const char* username, const char* password, bool isAdmin);
+	Admin(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, bool isAdmin);
 	~Admin();
 
 	void setIsAdmin(bool isAdmin);
