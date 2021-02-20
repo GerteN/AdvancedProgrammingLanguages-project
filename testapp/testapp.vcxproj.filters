@@ -30,6 +30,15 @@
     <ClInclude Include="db.h">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="Istruttore.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Corso.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="Membership.h">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -45,6 +54,15 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="db.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Istruttore.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Corso.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="Membership.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

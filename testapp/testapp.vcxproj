@@ -158,15 +158,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Admin.h" />
+    <ClInclude Include="Corso.h" />
     <ClInclude Include="db.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Istruttore.h" />
+    <ClInclude Include="Membership.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="User.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
+    <ClCompile Include="Corso.cpp" />
     <ClCompile Include="db.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="Istruttore.cpp" />
+    <ClCompile Include="Membership.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
