@@ -17,17 +17,6 @@
 #include "Membership.h"
 #include "Corso.h"
 
-void prepareStrings(string& str, char sep, vector<string>& out)
-{
-    size_t start;
-    size_t end = 0;
-
-    while ((start = str.find_first_not_of(sep, end)) != string::npos)
-    {
-        end = str.find(sep, start);
-        out.push_back(str.substr(start, end - start));
-    }
-}
 
 bool checkPassword(string passwordDB, string passwordToCheck) {
 
@@ -134,6 +123,9 @@ BOOST_PYTHON_MODULE(testapp) {
     def("validateAdmin", validateAdmin, return_internal_reference<>());
     def("createUser", createUser);
     def("createAdmin", createAdmin);
+    def("createIstruttore", createIstruttore);
+    def("createCorso", createCorso);
+    def("createMembership", createMembership);
 
     class_<Admin, boost::noncopyable>("Admin", init<string, string, string, string, string, string, string, bool>())
         .def(init<>())
