@@ -79,7 +79,7 @@ void db::queryDB(MYSQL* conn, const char* query) {
 }
 
 //query with returning values from db
-lista db::queryDB(MYSQL* conn, const char* query, bool insert) {
+std::vector<lista> db::queryDB(MYSQL* conn, const char* query, bool insert) {
 	if (mysql_query(conn, query)) 
 	{
 		std::string error = "unable to query db with name " + std::string(conn->db) + "; query: " + std::string(query);
@@ -88,18 +88,18 @@ lista db::queryDB(MYSQL* conn, const char* query, bool insert) {
 		exit(1);
 	}
 	m_result = mysql_store_result(conn);
+
 	unsigned int num_fields;
-	unsigned int i;
-	lista last;
+	std::vector<lista> last;
+	lista fields;
+
 	num_fields = mysql_num_fields(m_result);
 	while ((m_row = mysql_fetch_row(m_result)))
 	{
-		unsigned long* lengths;
-		lengths = mysql_fetch_lengths(m_result);
-		std::string s = "";
-		for (i = 0; i < num_fields; i++)
-			s.append(m_row[i]).append(" ");
-		last.push_back(s);
+		for (unsigned int i = 0; i < num_fields; i++)
+			fields.push_back(m_row[i]);
+		last.push_back(fields);
+		fields.clear();
 	}
 	return last;
 

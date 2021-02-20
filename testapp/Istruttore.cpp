@@ -2,6 +2,7 @@
 #include "Istruttore.h"
 
 Istruttore::Istruttore(int instructorId, string name, string surname) : m_instructorId(instructorId), m_name(name), m_surname(surname){}
+Istruttore::Istruttore(string name, string surname) : m_name(name), m_surname(surname) {}
 Istruttore::~Istruttore(){}
 
 int Istruttore::getInstructorId() {

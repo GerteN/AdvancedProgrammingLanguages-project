@@ -144,7 +144,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\Users\matte\AppData\Local\Programs\Python\Python37\include;C:\Program Files\MySQL\MySQL Server 8.0\include;C:\Program Files\MySQL\Connector C++ 8.0\include;C:\local\boost_1_71_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Matteo\AppData\Local\Programs\Python\Python39\include;C:\Program Files\MySQL\MySQL Server 8.0\include;C:\Program Files\MySQL\Connector C++ 8.0\include;C:\local\boost_1_75_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -152,7 +152,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
-      <AdditionalLibraryDirectories>C:\Users\matte\AppData\Local\Programs\Python\Python37\Lib;C:\Users\matte\AppData\Local\Programs\Python\Python37\libs;C:\Users\matte\AppData\Local\Programs\Python\Python37\tcl;C:\Program Files\MySQL\MySQL Server 8.0\lib;C:\Program Files\MySQL\Connector C++ 8.0\lib64;C:\local\boost_1_71_0\lib64-msvc-14.2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\Matteo\AppData\Local\Programs\Python\Python39\Lib;C:\Users\Matteo\AppData\Local\Programs\Python\Python39\libs;C:\Users\Matteo\AppData\Local\Programs\Python\Python39\tcl;C:\Program Files\MySQL\MySQL Server 8.0\lib;C:\Program Files\MySQL\Connector C++ 8.0\lib64;C:\local\boost_1_75_0\lib64-msvc-14.2;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libmysql.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

@@ -9,6 +9,7 @@ class Istruttore
 {
 public:
 	Istruttore(int instructorId, string name, string surname);
+	Istruttore(string name, string surname);
 	~Istruttore();
 
 	int getInstructorId();

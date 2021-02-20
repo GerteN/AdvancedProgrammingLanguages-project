@@ -45,7 +45,7 @@ public:
 	void queryDB(MYSQL* conn, const char* query);
 
 	//query with returning values from db
-	lista queryDB(MYSQL* conn, const char* query, bool insert);
+	std::vector<lista> queryDB(MYSQL* conn, const char* query, bool insert);
 
 
 	MYSQL* m_conn;
