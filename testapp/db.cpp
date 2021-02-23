@@ -83,17 +83,15 @@ std::vector<lista> db::queryDB(MYSQL* conn, const char* query, bool insert) {
 	if (mysql_query(conn, query)) 
 	{
 		std::string error = "unable to query db with name " + std::string(conn->db) + "; query: " + std::string(query);
+		std::cout << error << std::endl;
 		throw std::runtime_error(error);
 		mysql_close(conn);
 		exit(1);
 	}
 	m_result = mysql_store_result(conn);
-
-	unsigned int num_fields;
+	unsigned int num_fields = mysql_num_fields(m_result);;
 	std::vector<lista> last;
 	lista fields;
-
-	num_fields = mysql_num_fields(m_result);
 	while ((m_row = mysql_fetch_row(m_result)))
 	{
 		for (unsigned int i = 0; i < num_fields; i++)

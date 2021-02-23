@@ -29,12 +29,14 @@ bool checkPassword(string passwordDB, string passwordToCheck) {
 
 User* validateUser(db DB, string username, string password) {
     string query = "select * from users where username = '" + username + "' and password = '" + password + "'";
-    lista list = DB.queryDB(DB.getConn(), query.c_str(), true)[0];
-    if (list.empty())
+    vector<lista> listUser = DB.queryDB(DB.getConn(), query.c_str(), true);
+    if (listUser.empty())
         return nullptr;
+
     /*if (!checkPassword(out[6], password))
         return nullptr;*/
 
+    lista list = listUser[0];
     User *user = new User(list[1], list[2], list[3], list[4], list[5], list[6], list[7]);
     user->setUserId(stoi(list[0]));
     return user;
@@ -42,10 +44,10 @@ User* validateUser(db DB, string username, string password) {
 
 Admin* validateAdmin(db DB, string username, string password) {
     string query = "select * from admins where username = '" + username + "' and password = '" + password + "'";
-    lista list = DB.queryDB(DB.getConn(), query.c_str(), true)[0];
-    if (list.empty())
+    vector<lista> listAdmin = DB.queryDB(DB.getConn(), query.c_str(), true);
+    if (listAdmin.empty())
         return nullptr;
-
+    lista list = listAdmin[0];
     
     /*if (!checkPassword(out[6], password))
         return nullptr;*/
