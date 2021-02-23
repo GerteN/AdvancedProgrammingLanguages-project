@@ -11,8 +11,6 @@
 #include <boost/python/module.hpp>
 #include <boost/python/class.hpp>
 #include "db.h"
-#include <boost/python/exception_translator.hpp>
-#include <exception>
 #include "Istruttore.h"
 #include "Membership.h"
 #include "Corso.h"
@@ -31,28 +29,41 @@ bool checkPassword(string passwordDB, string passwordToCheck) {
 
 User* validateUser(db DB, string username, string password) {
     string query = "select * from users where username = '" + username + "' and password = '" + password + "'";
-    std::vector<std::string> lista = DB.queryDB(DB.getConn(), query.c_str(), true)[0];
-    if (lista.empty())
+    lista list = DB.queryDB(DB.getConn(), query.c_str(), true)[0];
+    if (list.empty())
         return nullptr;
     /*if (!checkPassword(out[6], password))
         return nullptr;*/
 
-    User *user = new User(lista[0], lista[1], lista[2], lista[3], lista[4], lista[5], lista[6]);
+    User *user = new User(list[1], list[2], list[3], list[4], list[5], list[6], list[7]);
+    user->setUserId(stoi(list[0]));
     return user;
 }
 
 Admin* validateAdmin(db DB, string username, string password) {
     string query = "select * from admins where username = '" + username + "' and password = '" + password + "'";
-    std::vector<std::string> lista = DB.queryDB(DB.getConn(), query.c_str(), true)[0];
-    if (lista.empty())
+    lista list = DB.queryDB(DB.getConn(), query.c_str(), true)[0];
+    if (list.empty())
         return nullptr;
 
     
     /*if (!checkPassword(out[6], password))
         return nullptr;*/
 
-    Admin* admin = new Admin(lista[0], lista[1], lista[2], lista[3], lista[4], lista[5], lista[6], true);
+    Admin* admin = new Admin(list[0], list[1], list[2], list[3], list[4], list[5], list[6], true);
     return admin;
+}
+
+std::vector<User> getAllUsers(db DB) {
+    string query = "select * from users";
+    std::vector<lista> list = DB.queryDB(DB.getConn(), query.c_str(), true);
+    std::vector<User> userList;
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        User* user = new User((*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], (*it)[6], (*it)[7]);
+        user->setUserId(stoi((*it)[0]));
+        userList.push_back(*user);
+    }
+    return userList;
 }
 
 void createAdmin(Admin admin, db DB) {
@@ -63,12 +74,21 @@ void createAdmin(Admin admin, db DB) {
     string dataNascita(admin.getDataNascita());
     string password(admin.getPassword());
     string username(admin.getUsername());
-    string query = "INSERT INTO admins (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES(" + nome + cognome + indirizzo + dataNascita + email + username + password + ")";
+    string query = "INSERT INTO admins (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES('" + nome + "', '" + 
+        cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password + "')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
 
 void createUser(User user, db DB) {
+    string query = "SELECT * FROM users";
+    lista list = DB.queryDB(DB.getConn(), query.c_str(), true).back();
+    string userId;
+    if (list.empty())
+        userId = "0";
+    else
+        userId = to_string((stoi(list[0]) + 1));
+
     string nome(user.getNome());
     string cognome(user.getCognome());
     string email(user.getEmail());
@@ -76,23 +96,58 @@ void createUser(User user, db DB) {
     string dataNascita(user.getDataNascita());
     string password(user.getPassword());
     string username(user.getUsername());
-    string query = "INSERT INTO users (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES('"+ nome + "', '" + cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"')";
+    query = "INSERT INTO users (userId, nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES(" + userId + ", '"+ nome + "', '" +
+        cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"')";
     DB.queryDB(DB.getConn(), query.c_str());
+}
+
+void removeUser(int userId, db DB) {
+
+    string query = "DELETE FROM users WHERE userId = " + to_string(userId);
+    DB.queryDB(DB.getConn(), query.c_str());
+
+}
+
+void modifyUser(User user, db DB) {
+    string userId = to_string(user.getUserId());
+    string nome(user.getNome());
+    string cognome(user.getCognome());
+    string email(user.getEmail());
+    string indirizzo(user.getIndirizzo());
+    string dataNascita(user.getDataNascita());
+    string password(user.getPassword());
+    string username(user.getUsername());
+    string query = "UPDATE users SET nome = '" + nome + "', cognome ='" + cognome + "', indirizzo = '" + indirizzo + "', dataNascita = '" + 
+        dataNascita + "', email = '" + email + "', username = '" + username + "', password = '" + password + "' WHERE userId = " + userId;
+    DB.queryDB(DB.getConn(), query.c_str());
+
 }
 
 void createIstruttore(Istruttore istruttore, db DB) {
     string query = "SELECT * FROM instructors";
     
-    std::vector<std::string> lista = DB.queryDB(DB.getConn(), query.c_str(), true).back();
-    if (lista.empty())
-        istruttore.setInstructorId(0);
+    lista list = DB.queryDB(DB.getConn(), query.c_str(), true).back();
+    string instructorId;
+    if (list.empty())
+        instructorId = "0";
     else
-        istruttore.setInstructorId(stoi(lista[0]) + 1);
-
-    string instructorId = to_string(istruttore.getInstructorId());
+        instructorId = to_string((stoi(list[0]) + 1));
     string name = istruttore.getName();
     string surname = istruttore.getSurname();
-    query = "INSERT INTO instructor(instructorId, name, username) VALUES('" +instructorId + "', " + name + "', '" + surname + "'";
+    query = "INSERT INTO instructor(instructorId, name, username) VALUES(" + instructorId + ", '" + name + "', '" + surname + "')";
+    DB.queryDB(DB.getConn(), query.c_str());
+}
+
+void removeInstructor(Istruttore istruttore, db DB) {
+    string instructorId = to_string(istruttore.getInstructorId());
+    string query = "DELETE FROM instructors WHERE instructorId = " + instructorId + "";
+    DB.queryDB(DB.getConn(), query.c_str());
+
+}
+
+void removeCorso(Corso corso, db DB) {
+    string courseName = corso.getCourseName();
+    string query = "DELETE FROM courses WHERE courseName = '" + courseName + "'";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
@@ -101,22 +156,24 @@ void createCorso(Corso corso, db DB) {
     string days = to_string(corso.getDays());
     string monthlyCost = to_string(corso.getMonthlyCost());
     string instructorId = to_string(corso.getInstructorId());
-    string query = "INSERT INTO courses(courseName, days, monthlyCost, instructorId) VALUES('" + courseName + "', " + days + "', " + monthlyCost + "', '" + instructorId + "'";
+    string query = "INSERT INTO courses(courseName, days, monthlyCost, instructorId) VALUES('" + courseName + "', " + days + ", " + monthlyCost + ", " + instructorId + ")";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
 void createMembership(Membership membership, db DB) {
     string courseName = membership.getCourseName();
     string courseId = to_string(membership.getCourseId());
-    string query = "INSERT INTO membership(courseName, courseId) VALUES('" + courseName + "', " + courseId + "'";
+    string query = "INSERT INTO membership(courseName, courseId) VALUES('" + courseName + "', " + courseId + ")";
     DB.queryDB(DB.getConn(), query.c_str());
 }
+
 
 
 using namespace boost::python;
 BOOST_PYTHON_MODULE(testapp) {
     
     class_<lista>("lista").def(vector_indexing_suite<lista>());
+    class_<vector<User>>("userList").def(vector_indexing_suite<vector<User>>());
     class_<MYSQL>("MYSQL");
     
     def("validateUser", validateUser, return_internal_reference<>());
@@ -126,9 +183,13 @@ BOOST_PYTHON_MODULE(testapp) {
     def("createIstruttore", createIstruttore);
     def("createCorso", createCorso);
     def("createMembership", createMembership);
+    def("removeUser", removeUser);
+    def("removeInstructor", removeInstructor);
+    def("getAllUsers", getAllUsers);
 
     class_<Admin, boost::noncopyable>("Admin", init<string, string, string, string, string, string, string, bool>())
         .def(init<>())
+        .add_property("userId", &Admin::getUserId, &Admin::setUserId)
         .add_property("nome", &Admin::getNome, &Admin::setNome)
         .add_property("cognome", &Admin::getCognome, &Admin::setCognome)
         .add_property("email", &Admin::getEmail, &Admin::setEmail)
@@ -153,6 +214,7 @@ BOOST_PYTHON_MODULE(testapp) {
 
     class_<User, boost::noncopyable>("User", init<string, string, string, string, string, string, string>())
         .def(init<>())
+        .add_property("userId", &User::getUserId, &User::setUserId)
         .add_property("nome", &User::getNome, &User::setNome)
         .add_property("cognome", &User::getCognome, &User::setCognome)
         .add_property("email", &User::getEmail, &User::setEmail)

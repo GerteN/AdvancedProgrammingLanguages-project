@@ -15,6 +15,10 @@ public:
 	//destructor
 	~User();
 
+	bool operator==(const User& other);
+	bool operator!=(const User& other);
+
+	int getUserId();
 	string getNome();
 	string getEmail();
 	string getPassword();
@@ -24,6 +28,7 @@ public:
 	string getDataNascita();
 
 	// Setters
+	void setUserId(int userId);
 	void setNome(string nome);
 	void setEmail(string email);
 	void setPassword(string password);
@@ -32,33 +37,12 @@ public:
 	void setIndirizzo(string indirizzo);
 	void setDataNascita(string dataNascita);
 
-	//virtual function
-
-	/*User(const User&) = delete;
-	User& operator=(const User&) = delete;*/
-
-	/*template <typename T>
-	boost::python::object transfer_to_python(T* t)
-	{
-		// Transfer ownership to a smart pointer, allowing for proper cleanup
-		// incase Boost.Python throws.
-		std::unique_ptr<T> ptr(t);
-
-		// Use the manage_new_object generator to transfer ownership to Python.
-		namespace python = boost::python;
-		typename python::manage_new_object::apply<T*>::type converter;
-
-		// Transfer ownership to the Python handler and release ownership
-		// from C++.
-		python::handle<> handle(converter(*ptr));
-		ptr.release();
-
-		return python::object(handle);
-	}*/
+	
 
 
 
 protected:
+	int m_userId;
 	string m_nome;
 	string m_cognome;
 	string m_indirizzo;

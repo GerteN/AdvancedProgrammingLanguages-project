@@ -7,6 +7,13 @@ User::User(string nome, string cognome, string indirizzo, string dataNascita, st
 
 User::~User() {}
 
+bool User::operator==(const User& other) { return false; }
+bool User::operator!=(const User& other) { return false; }
+
+int User::getUserId() {
+	return m_userId;
+}
+
 string User::getEmail() {
 	return m_email;
 }
@@ -35,6 +42,9 @@ string User::getPassword() {
 	return m_password;
 }
 
+void User::setUserId(int userId) {
+	m_userId = userId;
+}
 void User::setCognome(string cognome) {
 	m_cognome = cognome;
 }
