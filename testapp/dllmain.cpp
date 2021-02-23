@@ -125,7 +125,7 @@ void modifyUser(User user, db DB) {
 
 }
 
-void createIstruttore(Istruttore istruttore, db DB) {
+void createInstructor(Istruttore istruttore, db DB) {
     string query = "SELECT * FROM instructors";
     
     lista list = DB.queryDB(DB.getConn(), query.c_str(), true).back();
@@ -140,20 +140,19 @@ void createIstruttore(Istruttore istruttore, db DB) {
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
-void removeInstructor(Istruttore istruttore, db DB) {
-    string instructorId = to_string(istruttore.getInstructorId());
-    string query = "DELETE FROM instructors WHERE instructorId = " + instructorId + "";
+void removeInstructor(int instructorId, db DB) {
+    string instructorID = to_string(instructorId);
+    string query = "DELETE FROM instructors WHERE instructorId = " + instructorID + "";
     DB.queryDB(DB.getConn(), query.c_str());
 
 }
 
-void removeCorso(Corso corso, db DB) {
-    string courseName = corso.getCourseName();
+void removeCourse(string courseName, db DB) {
     string query = "DELETE FROM courses WHERE courseName = '" + courseName + "'";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
-void createCorso(Corso corso, db DB) {
+void createCourse(Corso corso, db DB) {
     string courseName = corso.getCourseName();
     string days = to_string(corso.getDays());
     string monthlyCost = to_string(corso.getMonthlyCost());
@@ -182,11 +181,13 @@ BOOST_PYTHON_MODULE(testapp) {
     def("validateAdmin", validateAdmin, return_internal_reference<>());
     def("createUser", createUser);
     def("createAdmin", createAdmin);
-    def("createIstruttore", createIstruttore);
-    def("createCorso", createCorso);
+    def("createInstructor", createInstructor);
+    def("createCourse", createCourse);
     def("createMembership", createMembership);
     def("removeUser", removeUser);
     def("removeInstructor", removeInstructor);
+    def("removeCourse", removeCourse);
+    def("modifyUser", modifyUser);
     def("getAllUsers", getAllUsers);
 
     class_<Admin, boost::noncopyable>("Admin", init<string, string, string, string, string, string, string, bool>())
