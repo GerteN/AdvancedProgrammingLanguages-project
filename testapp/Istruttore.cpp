@@ -2,7 +2,9 @@
 #include "Istruttore.h"
 
 Istruttore::Istruttore(int instructorId, string name, string surname) : m_instructorId(instructorId), m_name(name), m_surname(surname){}
-Istruttore::Istruttore(string name, string surname) : m_name(name), m_surname(surname) {}
+Istruttore::Istruttore(string name, string surname) : m_name(name), m_surname(surname) {
+	m_instructorId = -1;
+}
 Istruttore::~Istruttore(){}
 
 bool Istruttore::operator==(const Istruttore& other) { return false; }

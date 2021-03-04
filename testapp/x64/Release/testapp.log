@@ -1,8 +1,69 @@
-﻿  User.cpp
+﻿  Istruttore.cpp
+  dllmain.cpp
+C:\local\boost_1_71_0\boost\python\suite\indexing\vector_indexing_suite.hpp(176,1): warning C4267: '+=': conversione da 'size_t' a 'long'. Possibile perdita di dati.
+C:\local\boost_1_71_0\boost\python\suite\indexing\vector_indexing_suite.hpp(170): message : durante la compilazione della funzione membro 'unsigned __int64 boost::python::vector_indexing_suite<std::vector<Membership,std::allocator<Membership>>,false,boost::python::detail::final_vector_derived_policies<Container,false>>::convert_index(Container &,PyObject *)' di modello classe
+          with
+          [
+              Container=std::vector<Membership,std::allocator<Membership>>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\indexing_suite.hpp(261): message : vedere il riferimento all'istanza 'unsigned __int64 boost::python::vector_indexing_suite<std::vector<Membership,std::allocator<Membership>>,false,boost::python::detail::final_vector_derived_policies<Container,false>>::convert_index(Container &,PyObject *)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              Container=std::vector<Membership,std::allocator<Membership>>
+          ]
+C:\Users\matte\source\repos\GerteN\AdvancedProgrammingLanguages-project\testapp\dllmain.cpp(196): message : vedere il riferimento all'istanza 'boost::python::vector_indexing_suite<std::vector<Membership,std::allocator<Membership>>,false,boost::python::detail::final_vector_derived_policies<Container,false>>' di modello classe di cui è in corso la compilazione
+          with
+          [
+              Container=std::vector<Membership,std::allocator<Membership>>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\detail\indexing_suite_detail.hpp(605,1): warning C4267: '+=': conversione da 'size_t' a 'long'. Possibile perdita di dati.
+C:\local\boost_1_71_0\boost\python\suite\indexing\detail\indexing_suite_detail.hpp(590): message : durante la compilazione della funzione membro 'void boost::python::detail::slice_helper<Container,DerivedPolicies,boost::python::detail::no_proxy_helper<Container,DerivedPolicies,boost::python::detail::container_element<Container,Index,DerivedPolicies>,Index>,Data,Index>::base_get_slice_data(Container &,PySliceObject *,Index &,Index &)' di modello classe
+          with
+          [
+              Container=lista,
+              DerivedPolicies=boost::python::detail::final_vector_derived_policies<lista,false>,
+              Index=unsigned __int64,
+              Data=std::basic_string<char,std::char_traits<char>,std::allocator<char>>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\detail\indexing_suite_detail.hpp(695): message : vedere il riferimento all'istanza 'void boost::python::detail::slice_helper<Container,DerivedPolicies,boost::python::detail::no_proxy_helper<Container,DerivedPolicies,boost::python::detail::container_element<Container,Index,DerivedPolicies>,Index>,Data,Index>::base_get_slice_data(Container &,PySliceObject *,Index &,Index &)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              Container=lista,
+              DerivedPolicies=boost::python::detail::final_vector_derived_policies<lista,false>,
+              Index=unsigned __int64,
+              Data=std::basic_string<char,std::char_traits<char>,std::allocator<char>>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\indexing_suite.hpp(256): message : vedere il riferimento all'istanza 'boost::python::detail::slice_helper<Container,DerivedPolicies,boost::python::detail::no_proxy_helper<Container,DerivedPolicies,boost::python::detail::container_element<Container,Index,DerivedPolicies>,Index>,Data,Index>' di modello classe di cui è in corso la compilazione
+          with
+          [
+              Container=lista,
+              DerivedPolicies=boost::python::detail::final_vector_derived_policies<lista,false>,
+              Index=unsigned __int64,
+              Data=std::basic_string<char,std::char_traits<char>,std::allocator<char>>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\indexing_suite.hpp(253): message : durante la compilazione della funzione membro 'void boost::python::indexing_suite<Container,DerivedPolicies,false,false,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>>::base_delete_item(Container &,PyObject *)' di modello classe
+          with
+          [
+              Container=lista,
+              DerivedPolicies=boost::python::detail::final_vector_derived_policies<lista,false>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\indexing_suite.hpp(186): message : vedere il riferimento all'istanza 'void boost::python::indexing_suite<Container,DerivedPolicies,false,false,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>>::base_delete_item(Container &,PyObject *)' della funzione modello di cui è in corso la compilazione
+          with
+          [
+              Container=lista,
+              DerivedPolicies=boost::python::detail::final_vector_derived_policies<lista,false>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\vector_indexing_suite.hpp(50): message : vedere il riferimento all'istanza 'boost::python::indexing_suite<Container,DerivedPolicies,false,false,std::basic_string<char,std::char_traits<char>,std::allocator<char>>,unsigned __int64,std::basic_string<char,std::char_traits<char>,std::allocator<char>>>' di modello classe di cui è in corso la compilazione
+          with
+          [
+              Container=lista,
+              DerivedPolicies=boost::python::detail::final_vector_derived_policies<lista,false>
+          ]
+C:\local\boost_1_71_0\boost\python\suite\indexing\detail\indexing_suite_detail.hpp(619,1): warning C4267: '+=': conversione da 'size_t' a 'long'. Possibile perdita di dati.
      Creazione della libreria C:\Users\matte\source\repos\GerteN\AdvancedProgrammingLanguages-project\x64\Release\testapp.lib e dell'oggetto C:\Users\matte\source\repos\GerteN\AdvancedProgrammingLanguages-project\x64\Release\testapp.exp
   Generazione codice in corso...
-  8 of 7155 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+  14 of 7154 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    9 functions had inline decision re-evaluated but remain unchanged
+    6 functions had inline decision re-evaluated but remain unchanged
   Generazione codice terminata
   testapp.vcxproj -> C:\Users\matte\source\repos\GerteN\AdvancedProgrammingLanguages-project\x64\Release\testapp.pyd

@@ -134,8 +134,7 @@ std::vector<Istruttore> getAllInstructors(db DB) {
     std::vector<lista> list = DB.queryDB(DB.getConn(), query.c_str(), true);
     std::vector<Istruttore> instructorList;
     for (auto it = list.begin(); it != list.end(); ++it) {
-        Istruttore* istruttore = new Istruttore((*it)[1], (*it)[2]);
-        istruttore->setInstructorId(stoi((*it)[0]));
+        Istruttore* istruttore = new Istruttore(stoi((*it)[0]), (*it)[1], (*it)[2]);
         instructorList.push_back(*istruttore);
     }
     return instructorList;
