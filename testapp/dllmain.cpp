@@ -98,7 +98,7 @@ void removeUser(int userId, db DB) {
 }
 
 void modifyUser(int userId, string email, string username, string password, db DB) {
-    string query = "UPDATE users SET SET email = '" + email + "',username = '" + username + "', password = '" + password + "' WHERE user_id = " + to_string(userId) + "";
+    string query = "UPDATE users SET email = '" + email + "',username = '" + username + "', password = '" + password + "' WHERE user_id = " + to_string(userId) + "";
     DB.queryDB(DB.getConn(), query.c_str());
 
 }
