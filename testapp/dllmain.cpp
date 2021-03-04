@@ -85,46 +85,34 @@ void createUser(User user, db DB) {
     string dataNascita(user.getDataNascita());
     string password(user.getPassword());
     string username(user.getUsername());
-    query = "INSERT INTO users (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES('" + nome + "', '" +
+    query = "INSERT INTO users (name, surname, address, birth_date, email, username, password) VALUES('" + nome + "', '" +
         cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
 void removeUser(int userId, db DB) {
 
-    string query = "DELETE FROM users WHERE userId = " + to_string(userId);
+    string query = "DELETE FROM users WHERE user_id = " + to_string(userId);
     DB.queryDB(DB.getConn(), query.c_str());
 
 }
 
-void modifyUser(User user, db DB) {
-    string userId = to_string(user.getUserId());
-    string nome(user.getNome());
-    string cognome(user.getCognome());
-    string email(user.getEmail());
-    string indirizzo(user.getIndirizzo());
-    string dataNascita(user.getDataNascita());
-    string password(user.getPassword());
-    string username(user.getUsername());
-    string query = "UPDATE users SET nome = '" + nome + "', cognome ='" + cognome + "', indirizzo = '" + indirizzo + "', dataNascita = '" + 
-        dataNascita + "', email = '" + email + "', username = '" + username + "', password = '" + password + "' WHERE userId = " + userId;
+void modifyUser(int userId, string email, string username, string password, db DB) {
+    string query = "UPDATE users SET SET email = '" + email + "',username = '" + username + "', password = '" + password + "' WHERE user_id = " + to_string(userId) + "";
     DB.queryDB(DB.getConn(), query.c_str());
 
 }
 
 void createInstructor(Istruttore istruttore, db DB) {
-    string query = "SELECT * FROM instructors";
-    
-    lista list = DB.queryDB(DB.getConn(), query.c_str(), true).back();
     string name = istruttore.getName();
     string surname = istruttore.getSurname();
-    query = "INSERT INTO instructor(instructorId, name, username) VALUES('" + name + "', '" + surname + "')";
+    string query = "INSERT INTO instructors(name, surname) VALUES('" + name + "', '" + surname + "')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
 void removeInstructor(int instructorId, db DB) {
     string instructorID = to_string(instructorId);
-    string query = "DELETE FROM instructors WHERE instructorId = " + instructorID + "";
+    string query = "DELETE FROM instructors WHERE instructor_id = " + instructorID + "";
     DB.queryDB(DB.getConn(), query.c_str());
 
 }
@@ -141,7 +129,7 @@ std::vector<Istruttore> getAllInstructors(db DB) {
 }
 
 void removeCourse(string courseName, db DB) {
-    string query = "DELETE FROM courses WHERE courseName = '" + courseName + "'";
+    string query = "DELETE FROM courses WHERE course_name = '" + courseName + "'";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
@@ -150,7 +138,7 @@ void createCourse(Corso corso, db DB) {
     string days = corso.getDays();
     string monthlyCost = to_string(corso.getMonthlyCost());
     string instructorId = to_string(corso.getInstructorId());
-    string query = "INSERT INTO courses(courseName, days, monthlyCost, instructorId) VALUES('" + courseName + "', " + days + ", " + monthlyCost + ", " + instructorId + ")";
+    string query = "INSERT INTO courses(course_name, days, monthly_cost, instructor_id) VALUES('" + courseName + "', " + days + ", " + monthlyCost + ", " + instructorId + ")";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
@@ -167,8 +155,13 @@ std::vector<Corso> getAllCourses(db DB) {
 
 void createMembership(Membership membership, db DB) {
     string courseName = membership.getCourseName();
-    string courseId = to_string(membership.getCourseId());
-    string query = "INSERT INTO membership(courseName, courseId) VALUES('" + courseName + "', " + courseId + ")";
+    string userId = to_string(membership.getUserId());
+    string query = "INSERT INTO membership(user_id, course_name) VALUES('" + userId + "', " +  courseName + ")";
+    DB.queryDB(DB.getConn(), query.c_str());
+}
+
+void removeMembership(int userId, string courseName, db DB) {
+    string query = "DELETE FROM membership WHERE course_name = '" + courseName + "'and user_id='" + (to_string(userId)) + "'";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
@@ -206,6 +199,7 @@ BOOST_PYTHON_MODULE(testapp) {
     def("removeUser", removeUser);
     def("removeInstructor", removeInstructor);
     def("removeCourse", removeCourse);
+    def("removeMembership", removeMembership);
     def("modifyUser", modifyUser);
     def("getAllUsers", getAllUsers);
     def("getAllInstructors", getAllInstructors);
@@ -259,7 +253,7 @@ BOOST_PYTHON_MODULE(testapp) {
 
     class_<Membership, boost::noncopyable>("membership", init<string, int>())
         .add_property("courseName", &Membership::getCourseName, &Membership::setCourseName)
-        .add_property("courseId", &Membership::getCourseId, &Membership::setCourseId);
+        .add_property("userId", &Membership::getUserId, &Membership::setUserId);
 }
 
 

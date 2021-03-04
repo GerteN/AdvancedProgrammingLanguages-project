@@ -7,20 +7,20 @@ using namespace std;
 class Membership
 {
 public:
-	Membership(string courseName, int courseId);
+	Membership(string courseName, int userId);
 	~Membership();
 
 	bool operator==(const Membership& other);
 	bool operator!=(const Membership& other);
 
 	string getCourseName();
-	int getCourseId();
+	int getUserId();
 	
 	void setCourseName(string courseName);
-	void setCourseId(int courseId);
+	void setUserId(int userId);
 private:
 	string m_courseName;
-	int m_courseId;
+	int m_userId;
 };
 
 #endif
