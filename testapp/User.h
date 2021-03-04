@@ -10,8 +10,8 @@ class User {
 
 public:
 	//constructor
-	User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password);
-	User(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password);
+	User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, char gender);
+	User(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, string dataIscrizione, char gender);
 	//destructor
 	~User();
 
@@ -26,6 +26,8 @@ public:
 	string getUsername();
 	string getIndirizzo();
 	string getDataNascita();
+	string getDataIscrizione();
+	char getGender();
 
 	// Setters
 	void setUserId(int userId);
@@ -36,6 +38,8 @@ public:
 	void setUsername(string username);
 	void setIndirizzo(string indirizzo);
 	void setDataNascita(string dataNascita);
+	void setDataIscrizione(string dataIscrizione);
+	void setGender(char gender);
 
 	
 
@@ -50,6 +54,8 @@ protected:
 	string m_email;
 	string m_username;
 	string m_password;
+	string m_dataIscrizione;
+	char m_gender;
 
 
 	

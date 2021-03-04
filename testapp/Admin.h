@@ -5,8 +5,8 @@
 
 class Admin : public User {
 public:
-	Admin(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, bool isAdmin);
-	Admin(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, bool isAdmin);
+	Admin(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, char gender, bool isAdmin);
+	Admin(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, string dataIscrizione, char gender, bool isAdmin);
 	~Admin();
 
 	bool operator==(const Admin& other);

@@ -2,9 +2,9 @@
 #include "User.h"
 
 
-User::User(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password) : m_userId(userId), m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password){
+User::User(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, string dataIscrizione, char gender) : m_userId(userId), m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password), m_dataIscrizione(dataIscrizione), m_gender(gender){
 }
-User::User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password) {
+User::User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, char gender) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password), m_gender(gender) {
 	m_userId = -1;
 }
 User::~User() {}
@@ -44,6 +44,14 @@ string User::getPassword() {
 	return m_password;
 }
 
+string getDataIscrizione() {
+	return m_dataIscrizione;
+}
+
+char getGender() {
+	return m_gender;
+}
+
 void User::setUserId(int userId) {
 	m_userId = userId;
 }
@@ -72,6 +80,14 @@ void User::setNome(string nome) {
 
 void User::setPassword(string password) {
 	m_password = password;
+}
+
+void setDataIscrizione(string dataIscrizione) {
+	m_dataIscrizione = dataIscrizione;
+}
+
+void setGender(char gender) {
+	m_gender = gender;
 }
 
 

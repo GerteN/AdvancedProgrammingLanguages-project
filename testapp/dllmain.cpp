@@ -26,7 +26,7 @@ User* validateUser(db DB, string username, string password) {
         return nullptr;
 
     lista list = listUser[0];
-    User *user = new User(stoi(list[0]), list[1], list[2], list[3], list[4], list[5], list[6], list[7]);
+    User *user = new User(stoi(list[0]), list[1], list[2], list[3], list[4], list[5], list[6], list[7], list[8], list[9][0]);
     return user;
 }
 
@@ -43,7 +43,7 @@ Admin* validateAdmin(db DB, string username, string password) {
     if (admin_id.empty())
         return nullptr;
 
-    Admin* admin = new Admin(stoi(list[0]), list[1], list[2], list[3], list[4], list[5], list[6], list[7], true);
+    Admin* admin = new Admin(stoi(list[0]), list[1], list[2], list[3], list[4], list[5], list[6], list[7], list[8], list[9][0], true);
     return admin;
 }
 
@@ -52,7 +52,7 @@ std::vector<User> getAllUsers(db DB) {
     std::vector<lista> list = DB.queryDB(DB.getConn(), query.c_str(), true);
     std::vector<User> userList;
     for (auto it = list.begin(); it != list.end(); ++it) {
-        User* user = new User(stoi((*it)[0]), (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], (*it)[6], (*it)[7]);
+        User* user = new User(stoi((*it)[0]), (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], (*it)[6], (*it)[7], (*it)[8], (*it)[9][0]);
         userList.push_back(*user);
     }
     return userList;
@@ -206,7 +206,7 @@ BOOST_PYTHON_MODULE(testapp) {
     def("getAllCourses", getAllCourses);
     def("getAllMemberships", getAllMemberships);
 
-    class_<Admin, boost::noncopyable>("Admin", init<string, string, string, string, string, string, string, bool>())
+    class_<Admin, boost::noncopyable>("Admin", init<string, string, string, string, string, string, string, char, bool>())
         .add_property("userId", &Admin::getUserId, &Admin::setUserId)
         .add_property("nome", &Admin::getNome, &Admin::setNome)
         .add_property("cognome", &Admin::getCognome, &Admin::setCognome)
@@ -215,7 +215,9 @@ BOOST_PYTHON_MODULE(testapp) {
         .add_property("username", &Admin::getUsername, &Admin::setUsername)
         .add_property("password", &Admin::getPassword, &Admin::setPassword)
         .add_property("dataDiNascita", &Admin::getDataNascita, &Admin::setDataNascita)
-        .add_property("isAdmin", &Admin::getIsAdmin, &Admin::setIsAdmin);
+        .add_property("isAdmin", &Admin::getIsAdmin, &Admin::setIsAdmin)
+        .add_property("dataIscrizione", &Admin::getDataIscrizione, &Admin::setDataIscrizione)
+        .add_property("gender", &Admin::getGender, &Admin::setGender);
 
     class_<db, boost::noncopyable>("db")
         .def(init<>())
@@ -230,7 +232,7 @@ BOOST_PYTHON_MODULE(testapp) {
         .def("setRow", &db::setRow)
         .def("setResult", &db::setResult);
 
-    class_<User, boost::noncopyable>("User", init<string, string, string, string, string, string, string>())
+    class_<User, boost::noncopyable>("User", init<string, string, string, string, string, string, string, char>())
         .add_property("userId", &User::getUserId, &User::setUserId)
         .add_property("nome", &User::getNome, &User::setNome)
         .add_property("cognome", &User::getCognome, &User::setCognome)
@@ -238,7 +240,9 @@ BOOST_PYTHON_MODULE(testapp) {
         .add_property("indirizzo", &User::getIndirizzo, &User::setIndirizzo)
         .add_property("username", &User::getUsername, &User::setUsername)
         .add_property("password", &User::getPassword, &User::setPassword)
-        .add_property("dataDiNascita", &User::getDataNascita, &User::setDataNascita);
+        .add_property("dataDiNascita", &User::getDataNascita, &User::setDataNascita)
+        .add_property("dataIscrizione", &User::getDataIscrizione, &User::setDataIscrizione)
+        .add_property("gender", &User::getGender, &User::setGender);
 
     class_<Istruttore, boost::noncopyable>("Istruttore", init<string, string>())
         .add_property("instructorId", &Istruttore::getInstructorId, &Istruttore::setInstructorId)
