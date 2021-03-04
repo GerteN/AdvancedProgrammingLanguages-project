@@ -138,7 +138,7 @@ void createCourse(Corso corso, db DB) {
     string days = corso.getDays();
     string monthlyCost = to_string(corso.getMonthlyCost());
     string instructorId = to_string(corso.getInstructorId());
-    string query = "INSERT INTO courses(course_name, days, monthly_cost, instructor_id) VALUES('" + courseName + "', " + days + ", " + monthlyCost + ", " + instructorId + ")";
+    string query = "INSERT INTO courses(course_name, days, monthly_cost, instructor_id) VALUES('" + courseName + "', '" + days + "', " + monthlyCost + ", " + instructorId + ")";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 

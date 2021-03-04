@@ -61,7 +61,7 @@ C:\local\boost_1_71_0\boost\python\suite\indexing\vector_indexing_suite.hpp(50):
 C:\local\boost_1_71_0\boost\python\suite\indexing\detail\indexing_suite_detail.hpp(619,1): warning C4267: '+=': conversione da 'size_t' a 'long'. Possibile perdita di dati.
      Creazione della libreria C:\Users\matte\source\repos\GerteN\AdvancedProgrammingLanguages-project\x64\Release\testapp.lib e dell'oggetto C:\Users\matte\source\repos\GerteN\AdvancedProgrammingLanguages-project\x64\Release\testapp.exp
   Generazione codice in corso...
-  2 of 7208 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  1 of 7208 functions (<0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     6 functions had inline decision re-evaluated but remain unchanged
   Generazione codice terminata
