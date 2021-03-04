@@ -66,8 +66,9 @@ void createAdmin(Admin admin, db DB) {
     string dataNascita(admin.getDataNascita());
     string password(admin.getPassword());
     string username(admin.getUsername());
-    string query = "INSERT INTO users (name, surname, address, birth_date, email, username, password) VALUES('" + nome + "', '" +
-        cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password + "')";
+    string gender(1, admin.getGender());
+    string query = "INSERT INTO users (name, surname, address, birth_date, email, username, password, gender) VALUES('" + nome + "', '" +
+        cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password + "', '" + gender + "')";
     DB.queryDB(DB.getConn(), query.c_str());
     query = "INSERT INTO admins (admin_id)  SELECT MAX(user_id) FROM users";
     DB.queryDB(DB.getConn(), query.c_str());
@@ -85,8 +86,9 @@ void createUser(User user, db DB) {
     string dataNascita(user.getDataNascita());
     string password(user.getPassword());
     string username(user.getUsername());
+    string gender(1, user.getGender());
     query = "INSERT INTO users (name, surname, address, birth_date, email, username, password) VALUES('" + nome + "', '" +
-        cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"')";
+        cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"', '" + gender + "')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
