@@ -1,10 +1,12 @@
 #include "pch.h"
 #include "User.h"
 
-User::User(){}
-User::User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password){
-}
 
+User::User(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password) : m_userId(userId), m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password){
+}
+User::User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password) {
+	m_userId = -1;
+}
 User::~User() {}
 
 bool User::operator==(const User& other) { return false; }

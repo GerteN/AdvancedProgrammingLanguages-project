@@ -16,15 +16,7 @@
 #include "Corso.h"
 
 
-bool checkPassword(string passwordDB, string passwordToCheck) {
 
-    int pass = stoi(passwordDB);
-    size_t passDB = (pass);
-    hash<string> stringHash;
-    if (stringHash(passwordToCheck) == passDB)
-        return true;
-    return false;
-}
 
 
 User* validateUser(db DB, string username, string password) {
@@ -33,26 +25,25 @@ User* validateUser(db DB, string username, string password) {
     if (listUser.empty())
         return nullptr;
 
-    /*if (!checkPassword(out[6], password))
-        return nullptr;*/
-
     lista list = listUser[0];
-    User *user = new User(list[1], list[2], list[3], list[4], list[5], list[6], list[7]);
-    user->setUserId(stoi(list[0]));
+    User *user = new User(stoi(list[0]), list[1], list[2], list[3], list[4], list[5], list[6], list[7]);
     return user;
 }
 
 Admin* validateAdmin(db DB, string username, string password) {
-    string query = "select * from admins where username = '" + username + "' and password = '" + password + "'";
+    string query = "select * from users where username = '" + username + "' and password = '" + password + "'";
     vector<lista> listAdmin = DB.queryDB(DB.getConn(), query.c_str(), true);
     if (listAdmin.empty())
         return nullptr;
-    lista list = listAdmin[0];
     
-    /*if (!checkPassword(out[6], password))
-        return nullptr;*/
+    lista list = listAdmin[0];
 
-    Admin* admin = new Admin(list[0], list[1], list[2], list[3], list[4], list[5], list[6], true);
+    query = "select * from admins where admin_id = " + list[0];
+    vector<lista> admin_id = DB.queryDB(DB.getConn(), query.c_str(), true);
+    if (admin_id.empty())
+        return nullptr;
+
+    Admin* admin = new Admin(stoi(list[0]), list[1], list[2], list[3], list[4], list[5], list[6], list[7], true);
     return admin;
 }
 
@@ -61,8 +52,7 @@ std::vector<User> getAllUsers(db DB) {
     std::vector<lista> list = DB.queryDB(DB.getConn(), query.c_str(), true);
     std::vector<User> userList;
     for (auto it = list.begin(); it != list.end(); ++it) {
-        User* user = new User((*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], (*it)[6], (*it)[7]);
-        user->setUserId(stoi((*it)[0]));
+        User* user = new User(stoi((*it)[0]), (*it)[1], (*it)[2], (*it)[3], (*it)[4], (*it)[5], (*it)[6], (*it)[7]);
         userList.push_back(*user);
     }
     return userList;
@@ -76,8 +66,10 @@ void createAdmin(Admin admin, db DB) {
     string dataNascita(admin.getDataNascita());
     string password(admin.getPassword());
     string username(admin.getUsername());
-    string query = "INSERT INTO admins (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES('" + nome + "', '" + 
+    string query = "INSERT INTO users (name, surname, address, birth_date, email, username, password) VALUES('" + nome + "', '" +
         cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password + "')";
+    DB.queryDB(DB.getConn(), query.c_str());
+    query = "INSERT INTO admins (admin_id)  SELECT MAX(user_id) FROM users";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
@@ -85,11 +77,6 @@ void createAdmin(Admin admin, db DB) {
 void createUser(User user, db DB) {
     string query = "SELECT * FROM users";
     lista list = DB.queryDB(DB.getConn(), query.c_str(), true).back();
-    string userId;
-    if (list.empty())
-        userId = "0";
-    else
-        userId = to_string((stoi(list[0]) + 1));
 
     string nome(user.getNome());
     string cognome(user.getCognome());
@@ -98,7 +85,7 @@ void createUser(User user, db DB) {
     string dataNascita(user.getDataNascita());
     string password(user.getPassword());
     string username(user.getUsername());
-    query = "INSERT INTO users (userId, nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES(" + userId + ", '"+ nome + "', '" +
+    query = "INSERT INTO users (nome, cognome, indirizzo, dataNascita, email, username, pass) VALUES('" + nome + "', '" +
         cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
@@ -129,14 +116,9 @@ void createInstructor(Istruttore istruttore, db DB) {
     string query = "SELECT * FROM instructors";
     
     lista list = DB.queryDB(DB.getConn(), query.c_str(), true).back();
-    string instructorId;
-    if (list.empty())
-        instructorId = "0";
-    else
-        instructorId = to_string((stoi(list[0]) + 1));
     string name = istruttore.getName();
     string surname = istruttore.getSurname();
-    query = "INSERT INTO instructor(instructorId, name, username) VALUES(" + instructorId + ", '" + name + "', '" + surname + "')";
+    query = "INSERT INTO instructor(instructorId, name, username) VALUES('" + name + "', '" + surname + "')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
@@ -147,6 +129,18 @@ void removeInstructor(int instructorId, db DB) {
 
 }
 
+std::vector<Istruttore> getAllInstructors(db DB) {
+    string query = "select * from instructors";
+    std::vector<lista> list = DB.queryDB(DB.getConn(), query.c_str(), true);
+    std::vector<Istruttore> instructorList;
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        Istruttore* istruttore = new Istruttore((*it)[1], (*it)[2]);
+        istruttore->setInstructorId(stoi((*it)[0]));
+        instructorList.push_back(*istruttore);
+    }
+    return instructorList;
+}
+
 void removeCourse(string courseName, db DB) {
     string query = "DELETE FROM courses WHERE courseName = '" + courseName + "'";
     DB.queryDB(DB.getConn(), query.c_str());
@@ -154,11 +148,22 @@ void removeCourse(string courseName, db DB) {
 
 void createCourse(Corso corso, db DB) {
     string courseName = corso.getCourseName();
-    string days = to_string(corso.getDays());
+    string days = corso.getDays();
     string monthlyCost = to_string(corso.getMonthlyCost());
     string instructorId = to_string(corso.getInstructorId());
     string query = "INSERT INTO courses(courseName, days, monthlyCost, instructorId) VALUES('" + courseName + "', " + days + ", " + monthlyCost + ", " + instructorId + ")";
     DB.queryDB(DB.getConn(), query.c_str());
+}
+
+std::vector<Corso> getAllCourses(db DB) {
+    string query = "select * from courses";
+    std::vector<lista> list = DB.queryDB(DB.getConn(), query.c_str(), true);
+    std::vector<Corso> courseList;
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        Corso* corso = new Corso((*it)[0], (*it)[1], stod((*it)[2]), stoi((*it)[3]));
+        courseList.push_back(*corso);
+    }
+    return courseList;
 }
 
 void createMembership(Membership membership, db DB) {
@@ -168,6 +173,18 @@ void createMembership(Membership membership, db DB) {
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
+std::vector<Membership> getAllMemberships(db DB) {
+    string query = "select * from membership";
+    std::vector<lista> list = DB.queryDB(DB.getConn(), query.c_str(), true);
+    std::vector<Membership> membershipList;
+    for (auto it = list.begin(); it != list.end(); ++it) {
+        Membership* membership = new Membership(((*it)[0]), stoi((*it)[1]));
+        membershipList.push_back(*membership);
+    }
+    return membershipList;
+
+}
+
 
 
 using namespace boost::python;
@@ -175,6 +192,9 @@ BOOST_PYTHON_MODULE(testapp) {
     
     class_<lista>("lista").def(vector_indexing_suite<lista>());
     class_<vector<User>>("userList").def(vector_indexing_suite<vector<User>>());
+    class_<vector<Corso>>("courseList").def(vector_indexing_suite<vector<Corso>>());
+    class_<vector<Istruttore>>("instructorList").def(vector_indexing_suite<vector<Istruttore>>());
+    class_<vector<Membership>>("membershipList").def(vector_indexing_suite<vector<Membership>>());
     class_<MYSQL>("MYSQL");
     
     def("validateUser", validateUser, return_internal_reference<>());
@@ -189,9 +209,11 @@ BOOST_PYTHON_MODULE(testapp) {
     def("removeCourse", removeCourse);
     def("modifyUser", modifyUser);
     def("getAllUsers", getAllUsers);
+    def("getAllInstructors", getAllInstructors);
+    def("getAllCourses", getAllCourses);
+    def("getAllMemberships", getAllMemberships);
 
     class_<Admin, boost::noncopyable>("Admin", init<string, string, string, string, string, string, string, bool>())
-        .def(init<>())
         .add_property("userId", &Admin::getUserId, &Admin::setUserId)
         .add_property("nome", &Admin::getNome, &Admin::setNome)
         .add_property("cognome", &Admin::getCognome, &Admin::setCognome)
@@ -216,7 +238,6 @@ BOOST_PYTHON_MODULE(testapp) {
         .def("setResult", &db::setResult);
 
     class_<User, boost::noncopyable>("User", init<string, string, string, string, string, string, string>())
-        .def(init<>())
         .add_property("userId", &User::getUserId, &User::setUserId)
         .add_property("nome", &User::getNome, &User::setNome)
         .add_property("cognome", &User::getCognome, &User::setCognome)
@@ -231,7 +252,7 @@ BOOST_PYTHON_MODULE(testapp) {
         .add_property("name", &Istruttore::getName, &Istruttore::setName)
         .add_property("surname", &Istruttore::getSurname, &Istruttore::setSurname);
     
-    class_<Corso, boost::noncopyable>("Corso", init<string, int, double, int>())
+    class_<Corso, boost::noncopyable>("Corso", init<string, string, double, int>())
         .add_property("courseName", &Corso::getCourseName, &Corso::setCourseName)
         .add_property("days", &Corso::getDays, &Corso::setDays)
         .add_property("monthlyCost", &Corso::getMonthlyCost, &Corso::setMonthlyCost)

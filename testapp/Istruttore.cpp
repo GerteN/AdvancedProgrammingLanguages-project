@@ -5,6 +5,9 @@ Istruttore::Istruttore(int instructorId, string name, string surname) : m_instru
 Istruttore::Istruttore(string name, string surname) : m_name(name), m_surname(surname) {}
 Istruttore::~Istruttore(){}
 
+bool Istruttore::operator==(const Istruttore& other) { return false; }
+bool Istruttore::operator!=(const Istruttore& other) { return false; }
+
 int Istruttore::getInstructorId() {
 	return m_instructorId;
 }

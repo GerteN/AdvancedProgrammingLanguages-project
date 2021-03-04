@@ -10,8 +10,8 @@ class User {
 
 public:
 	//constructor
-	User();
 	User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password);
+	User(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password);
 	//destructor
 	~User();
 

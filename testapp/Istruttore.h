@@ -12,6 +12,9 @@ public:
 	Istruttore(string name, string surname);
 	~Istruttore();
 
+	bool operator==(const Istruttore& other);
+	bool operator!=(const Istruttore& other);
+
 	int getInstructorId();
 	string getName();
 	string getSurname();

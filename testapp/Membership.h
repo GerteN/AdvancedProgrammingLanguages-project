@@ -10,6 +10,9 @@ public:
 	Membership(string courseName, int courseId);
 	~Membership();
 
+	bool operator==(const Membership& other);
+	bool operator!=(const Membership& other);
+
 	string getCourseName();
 	int getCourseId();
 	

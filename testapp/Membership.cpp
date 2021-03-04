@@ -4,6 +4,9 @@
 Membership::Membership(string courseName, int courseId) : m_courseName(courseName), m_courseId(courseId){}
 Membership::~Membership() {}
 
+bool Membership::operator==(const Membership& other) { return false; }
+bool Membership::operator!=(const Membership& other) { return false; }
+
 string Membership::getCourseName() {
 	return m_courseName;
 }
