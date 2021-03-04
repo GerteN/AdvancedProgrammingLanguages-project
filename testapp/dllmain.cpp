@@ -251,7 +251,7 @@ BOOST_PYTHON_MODULE(testapp) {
         .add_property("monthlyCost", &Corso::getMonthlyCost, &Corso::setMonthlyCost)
         .add_property("instructorId", &Corso::getInstructorId, &Corso::setInstructorId);
 
-    class_<Membership, boost::noncopyable>("membership", init<string, int>())
+    class_<Membership, boost::noncopyable>("Membership", init<string, int>())
         .add_property("courseName", &Membership::getCourseName, &Membership::setCourseName)
         .add_property("userId", &Membership::getUserId, &Membership::setUserId);
 }
