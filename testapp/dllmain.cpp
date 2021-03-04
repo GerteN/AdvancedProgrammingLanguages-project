@@ -246,7 +246,7 @@ BOOST_PYTHON_MODULE(testapp) {
         .add_property("password", &User::getPassword, &User::setPassword)
         .add_property("dataDiNascita", &User::getDataNascita, &User::setDataNascita);
 
-    class_<Istruttore, boost::noncopyable>("Istruttore", init<int, string, string>())
+    class_<Istruttore, boost::noncopyable>("Istruttore", init<string, string>())
         .add_property("instructorId", &Istruttore::getInstructorId, &Istruttore::setInstructorId)
         .add_property("name", &Istruttore::getName, &Istruttore::setName)
         .add_property("surname", &Istruttore::getSurname, &Istruttore::setSurname);
