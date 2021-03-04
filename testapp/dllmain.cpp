@@ -156,7 +156,7 @@ std::vector<Corso> getAllCourses(db DB) {
 void createMembership(Membership membership, db DB) {
     string courseName = membership.getCourseName();
     string userId = to_string(membership.getUserId());
-    string query = "INSERT INTO membership(user_id, course_name) VALUES('" + userId + "', " +  courseName + ")";
+    string query = "INSERT INTO membership(user_id, course_name) VALUES('" + userId + "', '" +  courseName + "')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
 
