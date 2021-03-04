@@ -87,7 +87,7 @@ void createUser(User user, db DB) {
     string password(user.getPassword());
     string username(user.getUsername());
     string gender(1, user.getGender());
-    query = "INSERT INTO users (name, surname, address, birth_date, email, username, password) VALUES('" + nome + "', '" +
+    query = "INSERT INTO users (name, surname, address, birth_date, email, username, password, gender) VALUES('" + nome + "', '" +
         cognome + "', '" + indirizzo + "', '" + dataNascita + "', '" + email + "', '" + username + "', '" + password +"', '" + gender + "')";
     DB.queryDB(DB.getConn(), query.c_str());
 }
