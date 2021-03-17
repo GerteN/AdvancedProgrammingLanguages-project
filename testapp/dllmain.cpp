@@ -1,16 +1,14 @@
 // dllmain.cpp : Definisce il punto di ingresso per l'applicazione DLL.
 #include "pch.h"
 #include <iostream>
-#include "User.h"
-#include "Admin.h"
-#include <boost/python.hpp>
-#include <mysql.h>
 #include <list>
+#include <boost/python.hpp>
 #include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 #include <boost/python/return_internal_reference.hpp>
-#include <boost/python/module.hpp>
-#include <boost/python/class.hpp>
+#include <mysql.h>
 #include "db.h"
+#include "User.h"
+#include "Admin.h"
 #include "Istruttore.h"
 #include "Membership.h"
 #include "Corso.h"
