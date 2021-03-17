@@ -35,17 +35,17 @@ public:
 	void close(MYSQL* conn);
 
 	//connect without db already created
-	void connect(MYSQL* conn, const char* host, const char* user, const char* password, int port);
+	void connect(MYSQL* conn, std::string host, std::string user, std::string password, int port);
 	//connect if db already created
-	void connect(MYSQL* conn, const char* host, const char* user, const char* password, int port, std::string db);
+	void connect(MYSQL* conn, std::string host, std::string user, std::string password, int port, std::string db);
 	//optional create a db
 	void createDB(MYSQL* conn, std::string db);
 
 	//query without retruning
-	void queryDB(MYSQL* conn, const char* query);
+	void queryDB(MYSQL* conn, std::string query);
 
 	//query with returning values from db
-	std::vector<lista> queryDB(MYSQL* conn, const char* query, bool insert);
+	std::vector<lista> queryDB(MYSQL* conn, std::string query, bool insert);
 
 
 	MYSQL* m_conn;

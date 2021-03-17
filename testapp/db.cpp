@@ -35,8 +35,8 @@ void db::close(MYSQL* conn) {
 }
 
 //connect without db already created
-void db::connect(MYSQL* conn, const char* host, const char* user, const char* password, int port) {
-	if (mysql_real_connect(conn, host, user, password, NULL, port, NULL, 0) == NULL)
+void db::connect(MYSQL* conn, std::string host, std::string user, std::string password, int port) {
+	if (mysql_real_connect(conn, host.c_str(), user.c_str(), password.c_str(), NULL, port, NULL, 0) == NULL)
 	{
 		throw std::runtime_error("Connection Error with the db");
 		mysql_close(conn);
@@ -46,8 +46,8 @@ void db::connect(MYSQL* conn, const char* host, const char* user, const char* pa
 
 
 //connect if db already created
-void db::connect(MYSQL* conn, const char* host, const char* user, const char* password, int port, std::string db) {
-	if (mysql_real_connect(conn, host, user, password, db.c_str(), port, NULL, 0) == NULL) 
+void db::connect(MYSQL* conn, std::string host, std::string user, std::string password, int port, std::string db) {
+	if (mysql_real_connect(conn, host.c_str(), user.c_str(), password.c_str(), db.c_str(), port, NULL, 0) == NULL)
 	{
 		throw std::runtime_error("Connection Error with the db");
 		mysql_close(conn);
@@ -69,8 +69,8 @@ void db::createDB(MYSQL* conn, std::string db) {
 }
 
 //query without retruning
-void db::queryDB(MYSQL* conn, const char* query) {
-	if (mysql_query(conn, query))
+void db::queryDB(MYSQL* conn, std::string query) {
+	if (mysql_query(conn, query.c_str()))
 	{
 		std::string error = "unable to query db with name " + std::string(conn->db) + "; query: " + std::string(query);
 		throw std::runtime_error(error);
@@ -79,8 +79,8 @@ void db::queryDB(MYSQL* conn, const char* query) {
 }
 
 //query with returning values from db
-std::vector<lista> db::queryDB(MYSQL* conn, const char* query, bool insert) {
-	if (mysql_query(conn, query)) 
+std::vector<lista> db::queryDB(MYSQL* conn, std::string query, bool insert) {
+	if (mysql_query(conn, query.c_str()))
 	{
 		std::string error = "unable to query db with name " + std::string(conn->db) + "; query: " + std::string(query);
 		std::cout << error << std::endl;

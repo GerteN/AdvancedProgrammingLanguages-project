@@ -7,16 +7,16 @@ Corso::~Corso() {}
 bool Corso::operator==(const Corso& other) { return false; }
 bool Corso::operator!=(const Corso& other) { return false; }
 
-string Corso::getCourseName() {
+string Corso::getCourseName() const {
 	return m_courseName;
 }
-string Corso::getDays() {
+string Corso::getDays() const {
 	return m_days;
 }
-double Corso::getMonthlyCost(){
+double Corso::getMonthlyCost() const {
 	return m_monthlyCost;
 }
-int Corso::getInstructorId(){
+int Corso::getInstructorId() const {
 	return m_instructorId;
 }
 

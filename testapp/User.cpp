@@ -2,9 +2,9 @@
 #include "User.h"
 
 
-User::User(int userId, string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, string dataIscrizione, char gender) : m_userId(userId), m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password), m_dataIscrizione(dataIscrizione), m_gender(gender){
+User::User(int userId, std::string nome, std::string cognome, std::string indirizzo, std::string dataNascita, std::string email, std::string username, std::string password, std::string dataIscrizione, char gender) : m_userId(userId), m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password), m_dataIscrizione(dataIscrizione), m_gender(gender){
 }
-User::User(string nome, string cognome, string indirizzo, string dataNascita, string email, string username, string password, char gender) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password), m_gender(gender) {
+User::User(std::string nome, std::string cognome, std::string indirizzo, std::string dataNascita, std::string email, std::string username, std::string password, char gender) : m_nome(nome), m_cognome(cognome), m_indirizzo(indirizzo), m_dataNascita(dataNascita), m_email(email), m_username(username), m_password(password), m_gender(gender) {
 	m_userId = -1;
 }
 User::~User() {}
@@ -12,81 +12,81 @@ User::~User() {}
 bool User::operator==(const User& other) { return false; }
 bool User::operator!=(const User& other) { return false; }
 
-int User::getUserId() {
+int User::getUserId() const {
 	return m_userId;
 }
 
-string User::getEmail() {
+std::string User::getEmail() const {
 	return m_email;
 }
 
-string User::getCognome() {
+std::string User::getCognome() const {
 	return m_cognome;
 }
 
-string User::getIndirizzo() {
+std::string User::getIndirizzo() const {
 	return m_indirizzo;
 }
 
-string User::getDataNascita() {
+std::string User::getDataNascita() const {
 	return m_dataNascita;
 }
 
-string User::getUsername() {
+std::string User::getUsername() const {
 	return m_username;
 }
 
-string User::getNome() {
+std::string User::getNome() const {
 	return m_nome;
 }
 
-string User::getPassword() {
+std::string User::getPassword() const {
 	return m_password;
 }
 
-string getDataIscrizione() {
+std::string User::getDataIscrizione() const {
 	return m_dataIscrizione;
 }
 
-char getGender() {
+char User::getGender() const {
 	return m_gender;
 }
 
 void User::setUserId(int userId) {
 	m_userId = userId;
 }
-void User::setCognome(string cognome) {
+void User::setCognome(std::string cognome) {
 	m_cognome = cognome;
 }
 
-void User::setIndirizzo(string indirizzo) {
+void User::setIndirizzo(std::string indirizzo) {
 	m_indirizzo = indirizzo;
 }
-void User::setDataNascita(string dataNascita) {
+void User::setDataNascita(std::string dataNascita) {
 	m_dataNascita = dataNascita;
 }
 
-void User::setUsername(string username) {
+void User::setUsername(std::string username) {
 	m_username = username;
 }
 
-void User::setEmail(string email) {
+void User::setEmail(std::string email) {
 	m_email = email;
 }
 
-void User::setNome(string nome) {
+void User::setNome(std::string nome) {
 	m_nome = nome;
 }
 
-void User::setPassword(string password) {
+void User::setPassword(std::string password) {
 	m_password = password;
 }
 
-void setDataIscrizione(string dataIscrizione) {
+void User::setDataIscrizione(std::string dataIscrizione) {
 	m_dataIscrizione = dataIscrizione;
 }
 
-void setGender(char gender) {
+void User::setGender(char gender) {
 	m_gender = gender;
 }
 

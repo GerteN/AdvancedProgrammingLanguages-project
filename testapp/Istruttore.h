@@ -4,30 +4,30 @@
 
 #include <string>
 
-using namespace std;
+
 class Istruttore
 {
 public:
-	Istruttore(int instructorId, string name, string surname);
-	Istruttore(string name, string surname);
+	Istruttore(int instructorId, std::string name, std::string surname);
+	Istruttore(std::string name, std::string surname);
 	~Istruttore();
 
 	bool operator==(const Istruttore& other);
 	bool operator!=(const Istruttore& other);
 
-	int getInstructorId();
-	string getName();
-	string getSurname();
+	int getInstructorId() const;
+	std::string getName() const;
+	std::string getSurname() const;
 
 	void setInstructorId(int instructorId);
-	void setName(string name);
-	void setSurname(string surname);
+	void setName(std::string name);
+	void setSurname(std::string surname);
 
 
 private:
 	int m_instructorId;
-	string m_name;
-	string m_surname;
+	std::string m_name;
+	std::string m_surname;
 };
 
 #endif

@@ -3,23 +3,23 @@
 #define MEMBERSHIP_H_
 #include <string>
 
-using namespace std;
+
 class Membership
 {
 public:
-	Membership(string courseName, int userId);
+	Membership(std::string courseName, int userId);
 	~Membership();
 
 	bool operator==(const Membership& other);
 	bool operator!=(const Membership& other);
 
-	string getCourseName();
-	int getUserId();
+	std::string getCourseName() const;
+	int getUserId() const;
 	
-	void setCourseName(string courseName);
+	void setCourseName(std::string courseName);
 	void setUserId(int userId);
 private:
-	string m_courseName;
+	std::string m_courseName;
 	int m_userId;
 };
 
